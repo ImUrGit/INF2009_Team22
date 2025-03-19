@@ -1,0 +1,95 @@
+biscuit
+battery
+milk
+bread
+cheese
+butter
+eggs
+yogurt
+cereal
+juice
+soda
+coffee
+tea
+sugar
+flour
+rice
+pasta
+noodles
+oil
+salt
+pepper
+ketchup
+mayonnaise
+mustard
+jam
+honey
+chocolate
+candy
+chips
+crackers
+nuts
+granola
+water
+beer
+wine
+whiskey
+vodka
+chicken
+beef
+pork
+fish
+shrimp
+sausage
+bacon
+ham
+tofu
+lettuce
+tomato
+cucumber
+onion
+garlic
+potato
+carrot
+apple
+banana
+orange
+grapes
+watermelon
+pineapple
+mango
+avocado
+detergent
+soap
+shampoo
+toothpaste
+toothbrush
+tissue
+paper towel
+toilet paper
+razor
+deodorant
+lotion
+sunscreen
+diaper
+baby wipes
+dog food
+cat food
+laundry pods
+dish soap
+sponges
+batteries
+light bulb
+matches
+foil
+plastic wrap
+trash bags
+mop
+broom
+candles
+air freshener
+vitamins
+medicine
+band-aid
+energy drink
+protein bar
