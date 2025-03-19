@@ -1,0 +1,4 @@
+vosk
+pyaudio
+torch
+silero_vad

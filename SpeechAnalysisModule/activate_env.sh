@@ -1,0 +1,1 @@
+source vosk_test/bin/activate
