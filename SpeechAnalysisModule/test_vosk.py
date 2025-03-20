@@ -20,46 +20,6 @@ model = Model(model_path)
 with open("list_of_words.txt", "r") as f:
     keywords = f.readlines()
 
-# Function to recognize speech from a file
-def recognize_audio(audio_file):
-    wf = wave.open(audio_file, "rb")
-
-    if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getframerate() != 16000:
-        print("Audio file must be mono PCM WAV at 16kHz.")
-        sys.exit()
-
-    recognizer = KaldiRecognizer(model, wf.getframerate())
-
-    results = []
-    p_text_lst = []
-    start = time.time()
-    while True:
-        data = wf.readframes(4000)
-        if len(data) == 0:
-            print("End")
-            break
-        print("Frame of 4000")
-        if recognizer.AcceptWaveform(data):
-            print("Accepted")
-            result = recognizer.Result()
-            results.append(json.loads(result))
-        else:
-            print("Partial")
-            result = recognizer.PartialResult()
-            p_text_lst.append(result)
-
-    print("Elapsed time:",time.time()-start)
-    print("Results:")
-    # print(results)
-    # print(p_text_lst)
-    # Output recognized text
-    for result in results:
-        print(result.get('text', ''))
-    for result in p_text_lst:
-        print(result["partial"])
-
-
-
 if __name__ == "__main__":
 
     p = pyaudio.PyAudio()
@@ -76,16 +36,6 @@ if __name__ == "__main__":
             print("complete:", json.loads(result)["text"])
         else:
             result = recognizer.PartialResult()
-            # print(result)
-            # print(result)
             print("partial:", json.loads(result)["partial"])
-        
 
-#old code for speech recognition from file
-if __name__ == "__main__":
-    # Provide the path to your WAV audio file
-    
-    audio_file = "audio_curry_powder.wav"  # Change to your file path
-    
-    recognize_audio(audio_file)
     
