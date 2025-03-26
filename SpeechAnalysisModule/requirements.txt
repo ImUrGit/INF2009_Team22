@@ -1,4 +1,6 @@
 vosk
 pyaudio
 torch
-silero_vad
+silero-vad
+scipy
+torch

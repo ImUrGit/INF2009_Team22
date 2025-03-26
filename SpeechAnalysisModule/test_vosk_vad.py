@@ -5,11 +5,30 @@ import json
 from vosk import Model, KaldiRecognizer
 import time
 import pyaudio
-from silero_vad import load_silero_vad, read_audio
+import torch
+import numpy as np
 
-silero_model = load_silero_vad()
+# Provided by Alexander Veysov
+def int2float(sound):
+    abs_max = np.abs(sound).max()
+    sound = sound.astype('float32')
+    if abs_max > 0:
+        sound *= 1/32768
+    sound = sound.squeeze()  # depends on the use case
+    return sound
+
 # Path to the model (adjust according to where you extracted the model)
 model_path = "vosk-model-small-en-us-0.15"
+
+vad_model, utils = torch.hub.load(repo_or_dir='snakers4/silero-vad',
+                              model='silero_vad',
+                              force_reload=True)
+
+(get_speech_timestamps,
+ save_audio,
+ read_audio,
+ VADIterator,
+ collect_chunks) = utils
 
 #model_path = "vosk-model-en-us-0.22"
 # Load the Vosk model
@@ -19,45 +38,8 @@ if not os.path.exists(model_path):
 
 model = Model(model_path)
 
-# Function to recognize speech from a file
-def recognize_audio(audio_file):
-    wf = wave.open(audio_file, "rb")
-
-    if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getframerate() != 16000:
-        print("Audio file must be mono PCM WAV at 16kHz.")
-        sys.exit()
-
-    recognizer = KaldiRecognizer(model, wf.getframerate())
-
-    results = []
-    p_text_lst = []
-    start = time.time()
-    while True:
-        data = wf.readframes(4000)
-        if len(data) == 0:
-            print("End")
-            break
-        print("Frame of 4000")
-        if recognizer.AcceptWaveform(data):
-            print("Accepted")
-            result = recognizer.Result()
-            results.append(json.loads(result))
-        else:
-            print("Partial")
-            result = recognizer.PartialResult()
-            p_text_lst.append(result)
-
-    print("Elapsed time:",time.time()-start)
-    print("Results:")
-    # print(results)
-    # print(p_text_lst)
-    # Output recognized text
-    for result in results:
-        print(result.get('text', ''))
-    for result in p_text_lst:
-        print(result)
-
-
+with open("list_of_words.txt", "r") as f:
+    keywords = f.readlines()
 
 if __name__ == "__main__":
 
@@ -67,21 +49,38 @@ if __name__ == "__main__":
     
     recognizer = KaldiRecognizer(model,16000)
     
+    is_listening = False
+    old_data = []
     while True:
-        data = stream.read(4000)
-        if recognizer.AcceptWaveform(data):
-            result = recognizer.Result()
-            print(result)
-        else:
-            result = recognizer.PartialResult()
-            print(result)
+        data = stream.read(512)
+        #data = stream.read(4000)
         
+        audio_int16 = np.frombuffer(data, np.int16)
+        audio_float32 = int2float(audio_int16)
+        speech_prob = vad_model(torch.from_numpy(audio_float32), 16000).item()
+        
+        if not is_listening:
+            old_data.append(data)
+            if len(old_data) > 2:
+                old_data.pop(0)
+        
+        # print(speech_prob)
+        # if True:
+        if speech_prob > 0.5 or is_listening:
+            audio_input = data
+            if len(old_data) > 0:
+                audio_input = b''.join(old_data)
+                old_data = []
+            if recognizer.AcceptWaveform(data):
+                result = recognizer.Result()
+                # print(result)
+                print("complete:", json.loads(result)["text"])
+                is_listening = False
+            else:
+                is_listening = True
+                result = recognizer.PartialResult()
+                print("partial:", json.loads(result)["partial"])
+        else:
+            print(speech_prob)
 
-#old code for speech recognition from file
-if __name__ == "__main__":
-    # Provide the path to your WAV audio file
-    
-    audio_file = "audio_curry_powder.wav"  # Change to your file path
-    
-    recognize_audio(audio_file)
     
