@@ -1,6 +1,6 @@
 Install everything in requirements.txt
 
-Main file: `test_vosk_vad.py`.
+Main file: `speech_analysis.py`.
 
 Model Graph Adaptation code: Vosk_API_Model_Graph_Adaptation.ipynb
 
