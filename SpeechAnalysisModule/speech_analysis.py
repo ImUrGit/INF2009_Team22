@@ -46,6 +46,16 @@ class SpeechAnalysisModule:
         sound = sound.squeeze()  # depends on the use case
         return sound
     
+    def send_keyword(self, results_list):
+        found = []
+        for r in self.check_against_list:
+            if r in results_list:
+                print("Detected:", r) # Replace with queue pushing code
+                found.append(r)
+        
+        for keyword in found:
+            self.check_against_list.remove(keyword)
+    
     def listen(self):
         stream = self.p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=4000)
         recognizer = KaldiRecognizer(self.asr_model,16000)
@@ -53,9 +63,9 @@ class SpeechAnalysisModule:
         is_listening = False
         old_data = []
         
-        check_against_list = self.keywords
+        self.check_against_list = self.keywords
         
-        print("Checking against:", check_against_list)
+        print("Checking against:", self.check_against_list)
         
         while True:
             data = stream.read(512)
@@ -83,21 +93,18 @@ class SpeechAnalysisModule:
                     # print(result)
                     print("complete:", json.loads(result)["text"])
                     is_listening = False
-                    check_against_list = self.keywords
+                    
+                    self.send_keyword(results_list)  
+                    
+                    self.check_against_list = self.keywords
                 else:
                     is_listening = True
                     result = recognizer.PartialResult()
                     results_list = json.loads(result)["partial"]
                     # print("partial:", json.loads(result)["partial"])
-                    
-                    found = []
-                    for r in check_against_list:
-                        if r in results_list:
-                            print("Detected:", r) # Replace with queue pushing code
-                            found.append(r)
-                    
-                    for keyword in found:
-                        check_against_list.remove(keyword)
+                  
+                    self.send_keyword(results_list)  
+                
                     
             else:
                 # print(speech_prob)
