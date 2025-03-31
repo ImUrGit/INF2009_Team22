@@ -1,95 +1,180 @@
-biscuit
-battery
+fruits
+vegetables
+organic
+seasonal
+apples
+bananas
+oranges
+grapes
+berries
+lettuce
+tomatoes
+cucumbers
+carrots
+broccoli
+spinach
+kale
+herbs
+market
+farm
+fresh
 milk
-bread
 cheese
-butter
-eggs
 yogurt
-cereal
-juice
+eggs
+butter
+cream
+ice cream
+cottage cheese
+curd
+lactose-free
+organic dairy
+skim milk
+whole milk
+feta
+mozzarella
+cheddar
+blue cheese
+brie
+gouda
+dairy
+beef
+chicken
+pork
+lamb
+turkey
+salmon
+tuna
+shrimp
+crab
+lobster
+bacon
+sausage
+grill
+roast
+steak
+filet
+meat
+fish
+shellfish
+marinated
+bread
+pastries
+cakes
+desserts
+cookies
+brownies
+muffins
+croissants
+bagels
+donuts
+pies
+tarts
+scones
+buns
+rolls
+artisan
+glazed
+sweet
+savory
+bakery
+pasta
+rice
+canned goods
+spices
+oil
+vinegar
+flour
+sugar
+salt
+beans
+lentils
+broth
+cereals
+oats
+baking soda
+baking powder
+condiments
+noodles
+grains
+sauces
+chips
 soda
+snacks
+drinks
+cookies
+nuts
+popcorn
+juice
 coffee
 tea
-sugar
-flour
-rice
-pasta
-noodles
-oil
-salt
-pepper
-ketchup
-mayonnaise
-mustard
-jam
-honey
-chocolate
-candy
-chips
-crackers
-nuts
-granola
-water
-beer
-wine
-whiskey
-vodka
-chicken
-beef
-pork
-fish
-shrimp
-sausage
-bacon
-ham
-tofu
-lettuce
-tomato
-cucumber
-onion
-garlic
-potato
-carrot
-apple
-banana
-orange
-grapes
-watermelon
-pineapple
-mango
-avocado
-detergent
-soap
-shampoo
-toothpaste
-toothbrush
-tissue
-paper towel
-toilet paper
-razor
-deodorant
-lotion
-sunscreen
-diaper
-baby wipes
-dog food
-cat food
-laundry pods
-dish soap
-sponges
-batteries
-light bulb
-matches
-foil
-plastic wrap
-trash bags
-mop
-broom
-candles
-air freshener
-vitamins
-medicine
-band-aid
 energy drink
-protein bar
+water
+crackers
+granola
+bars
+chocolate
+iced tea
+smoothies
+biscuits
+beverage
+organic
+gluten-free
+vegan
+healthy
+superfoods
+whole foods
+natural
+low-calorie
+antioxidants
+fiber
+non-GMO
+raw
+plant-based
+holistic
+nutrition
+sustainable
+organic produce
+free-range
+herbal
+health boost
+frozen
+quick
+convenience
+meals
+ready-to-eat
+microwave
+frozen pizza
+dinner
+lunch
+snacks
+frozen veggies
+frozen fruits
+frozen dessert
+ice cream
+pre-cooked
+frozen dinner
+chilled
+heat-and-serve
+family meal
+frozen food
+cleaning
+supplies
+paper
+toiletries
+detergent
+dish soap
+towels
+napkins
+tissues
+batteries
+light bulbs
+trash bags
+cleaners
+household
+maintenance
+recycling
+laundry
+sponges
+mops
+essentials

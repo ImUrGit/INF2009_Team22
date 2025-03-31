@@ -8,6 +8,7 @@ import pyaudio
 import torch
 import numpy as np
 from rnnoise_wrapper import RNNoise
+import time
 
 class SpeechAnalysisModule:
     def __init__(self, asr_model_path = "vosk-model-small-en-us-0.15", vad_model_dir = "silero_models", keyword_file="list_of_words.txt", rnnoise_path="linux-rnnoise/rnnoise_mono.lv2/librnnoise_mono.so", noise_filter=False):
@@ -77,7 +78,9 @@ class SpeechAnalysisModule:
             
             audio_int16 = np.frombuffer(data, np.int16)
             audio_float32 = self.int2float(audio_int16)
+            # vad_start = time.time()
             speech_prob = self.vad_model(torch.from_numpy(audio_float32), 16000).item()
+            # print("VAD took," time.time() - vad_start,"seconds")
             
             if not is_listening:
                 old_data.append(data)
@@ -93,7 +96,9 @@ class SpeechAnalysisModule:
                     old_data = []
                 if self.noise_filter:
                     audio_input = self.denoiser.filter(audio_input, sample_rate=16000)
+                # asr_start = time.time()
                 if recognizer.AcceptWaveform(audio_input):
+                    # print("ASR took," time.time() - asr_start,"seconds")
                     result = recognizer.Result()
                 
                     # print(result)
@@ -104,6 +109,7 @@ class SpeechAnalysisModule:
                     
                     self.check_against_list = self.keywords
                 else:
+                    # print("ASR took," time.time() - asr_start,"seconds")
                     is_listening = True
                     result = recognizer.PartialResult()
                     results_list = json.loads(result)["partial"]
