@@ -1,19 +1,20 @@
 import cv2
 import time
+import numpy as np
 from deepface import DeepFace
+from openvino.runtime import Core
 
-# Load OpenCV's pre-trained deep learning face detector
-face_net = cv2.dnn.readNetFromCaffe(
-    "/home/icepi/models/weights-prototxt.txt",
-    "/home/icepi/models/res_ssd_300Dim.caffeModel"
-)
+# Initialize OpenVINO Runtime
+core = Core()
+model = core.read_model("/home/icepi/models/res_ssd_300Dim.xml")
+compiled_model = core.compile_model(model, "CPU")
+input_layer = compiled_model.input(0)
+output_layer = compiled_model.output(0)
 
+# Video capture from Pi camera or USB camera
 cap = cv2.VideoCapture(0)
 
-# Dictionary to store face timers
 face_timers = {}
-
-# Threshold time before processing a face (in seconds)
 PROCESS_DELAY = 2.0
 
 while True:
@@ -22,62 +23,72 @@ while True:
         break
 
     h, w = frame.shape[:2]
-    blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
 
-    face_net.setInput(blob)
-    detections = face_net.forward()
+    # Prepare input for model
+    input_frame = cv2.resize(frame, (300, 300))
+    input_blob = input_frame.transpose(2, 0, 1)[np.newaxis, ...]
 
     current_time = time.time()
     new_face_timers = {}
 
-    for i in range(detections.shape[2]):
-        confidence = detections[0, 0, i, 2]
+    # Perform inference
+    start_inference = time.time()
+    detections = compiled_model([input_blob])[output_layer]
+    inference_time = time.time() - start_inference
+
+    for detection in detections[0, 0]:
+        confidence = detection[2]
         if confidence > 0.5:
-            box = detections[0, 0, i, 3:7] * [w, h, w, h]
-            x, y, x2, y2 = box.astype("int")
+            xmin = max(int(detection[3] * w), 0)
+            ymin = max(int(detection[4] * h), 0)
+            xmax = min(int(detection[5] * w), w - 1)
+            ymax = min(int(detection[6] * h), h - 1)
 
-            # Generate a unique key for the detected face (based on position)
-            face_id = (x // 10, y // 10, x2 // 10, y2 // 10)  # Reduce precision to group nearby detections
+            face_id = (xmin // 10, ymin // 10, xmax // 10, ymax // 10)
 
-            # If face is seen for the first time, set initial time
             if face_id in face_timers:
                 elapsed_time = current_time - face_timers[face_id]
                 if elapsed_time >= PROCESS_DELAY:
-                    # Extract face region for analysis
-                    face_roi = frame[y:y2, x:x2]
+                    face_roi = frame[ymin:ymax, xmin:xmax]
 
                     try:
-                        start_time = time.time()
-                        analysis = DeepFace.analyze(face_roi, actions=['age', 'gender'], enforce_detection=False)
-                        end_time = time.time()
+                        analysis = DeepFace.analyze(
+                            face_roi, actions=['age', 'gender'], enforce_detection=False
+                        )
 
-                        age = analysis[0]['age']
-                        gender = analysis[0]['dominant_gender'].capitalize()
+                        if isinstance(analysis, list):
+                            analysis = analysis[0]
+
+                        age = analysis['age']
+                        gender = analysis['dominant_gender'].capitalize()
 
                         text = f"{gender}, Age: {age}"
-                        cv2.putText(frame, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2, cv2.LINE_AA)
+                        cv2.putText(
+                            frame, text, (xmin, ymin - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2
+                        )
 
-                        # **IMMEDIATELY PRINT OUTPUT**
+                        # Print analysis and inference time only when analysis succeeds
+                        print(f"Inference time: {inference_time:.4f} seconds")
                         print([gender, age])
 
                     except Exception as e:
-                        print(f"Error processing face: {e}")
+                        print(f"Error analyzing face: {e}")
             else:
-                # Store the new face with the current time
                 face_timers[face_id] = current_time
 
             new_face_timers[face_id] = face_timers.get(face_id, current_time)
 
             # Draw bounding box
-            cv2.rectangle(frame, (x, y), (x2, y2), (0, 255, 0), 2)
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
 
-    # Update face_timers with only the currently detected faces
     face_timers = new_face_timers
 
-    cv2.imshow("Optimized Multi-Face Detection", frame)
+    cv2.imshow("Pi Face Detection (OpenVINO)", frame)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+
 
 cap.release()
 cv2.destroyAllWindows()
