@@ -92,7 +92,7 @@ lentils
 broth
 cereals
 oats
-baking soda
+baking
 baking powder
 condiments
 noodles
