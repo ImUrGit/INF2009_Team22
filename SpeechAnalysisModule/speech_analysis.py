@@ -87,7 +87,7 @@ class SpeechAnalysisModule:
                 if len(old_data) > 0:
                     audio_input = b''.join(old_data)
                     old_data = []
-                if recognizer.AcceptWaveform(data):
+                if recognizer.AcceptWaveform(audio_input):
                     result = recognizer.Result()
                 
                     # print(result)
