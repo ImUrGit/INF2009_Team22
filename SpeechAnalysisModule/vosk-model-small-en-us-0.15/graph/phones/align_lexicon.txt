@@ -3810,7 +3810,6 @@ banco banco B_B AE_I NG_I K_I OW_E
 bancroft bancroft B_B AE_I NG_I K_I R_I AO_I F_I T_E
 band band B_B AE_I N_I D_E
 band's band's B_B AE_I N_I D_I Z_E
-band-aid band-aid B_B AE_I N_I D_I EY_I D_E
 banda banda B_B AE_I N_I D_I AH_E
 bandage bandage B_B AE_I N_I D_I IH_I JH_E
 bandaged bandaged B_B AE_I N_I D_I AH_I JH_I D_E
@@ -19476,6 +19475,7 @@ fredericksburg fredericksburg F_B R_I EH_I D_I R_I IH_I K_I S_I B_I ER_I G_E
 frederik frederik F_B R_I EH_I D_I R_I IH_I K_E
 fredrik fredrik F_B R_I EH_I D_I R_I IH_I K_E
 free free F_B R_I IY_E
+free-range free-range F_B R_I IY_I R_I EY_I N_I JH_E
 freebie freebie F_B R_I IY_I B_I IY_E
 freebies freebies F_B R_I IY_I B_I IY_I Z_E
 freed freed F_B R_I IY_I D_E
@@ -20758,6 +20758,7 @@ glum glum G_B L_I AH_I M_E
 glut glut G_B L_I AH_I T_E
 glutamate glutamate G_B L_I UW_I T_I AH_I M_I EY_I T_E
 gluten gluten G_B L_I UW_I T_I AH_I N_E
+gluten-free gluten-free G_B L_I UW_I T_I AH_I N_I F_I R_I IY_E
 glutes glutes G_B L_I UW_I T_I S_E
 glutton glutton G_B L_I AH_I T_I AH_I N_E
 gluttony gluttony G_B L_I AH_I T_I AH_I N_I IY_E
@@ -21010,6 +21011,7 @@ gotten gotten G_B AO_I T_I AH_I N_E
 gottfried gottfried G_B AO_I T_I F_I R_I IY_I D_E
 gotti gotti G_B AA_I T_I IY_E
 gottlieb gottlieb G_B AA_I T_I L_I IY_I B_E
+gouda gouda G_B UW_I D_I AH_E
 gouge gouge G_B AW_I JH_E
 gouged gouged G_B AW_I JH_I D_E
 gough gough G_B AO_I F_E
@@ -22515,6 +22517,7 @@ heartwarming heartwarming HH_B AA_I R_I T_I W_I AO_I R_I M_I IH_I NG_E
 hearty hearty HH_B AA_I R_I T_I IY_E
 heat heat HH_B IY_I T_E
 heat's heat's HH_B IY_I T_I S_E
+heat-and-serve heat-and-serve HH_B IY_I T_I AE_I N_I D_I S_I ER_I V_E
 heated heated HH_B IY_I T_I AH_I D_E
 heated heated HH_B IY_I T_I IH_I D_E
 heater heater HH_B IY_I T_I ER_E
@@ -27610,6 +27613,7 @@ lactate lactate L_B AE_I K_I T_I EY_I T_E
 lactation lactation L_B AE_I K_I T_I EY_I SH_I AH_I N_E
 lactic lactic L_B AE_I K_I T_I IH_I K_E
 lactose lactose L_B AE_I K_I T_I OW_I S_E
+lactose-free lactose-free L_B AE_I K_I T_I OW_I S_I F_I R_I IY_E
 lacy lacy L_B EY_I S_I IY_E
 lad lad L_B AE_I D_E
 ladd ladd L_B AE_I D_E
@@ -29167,6 +29171,7 @@ lovie lovie L_B AH_I V_I IY_E
 loving loving L_B AH_I V_I IH_I NG_E
 lovingly lovingly L_B AH_I V_I IH_I NG_I L_I IY_E
 low low L_B OW_E
+low-calorie low-calorie L_B OW_I K_I AE_I L_I ER_I IY_E
 lowdown lowdown L_B OW_I D_I AW_I N_E
 lowe lowe L_B OW_E
 lowell lowell L_B OW_I AH_I L_E
@@ -32035,6 +32040,7 @@ moped moped M_B OW_I P_I EH_I D_E
 moped moped M_B OW_I P_I T_E
 moping moping M_B OW_I P_I IH_I NG_E
 mopping mopping M_B AA_I P_I IH_I NG_E
+mops mops M_B AA_I P_I S_E
 mor mor M_B AO_I R_E
 mora mora M_B AO_I R_I AH_E
 moral moral M_B AO_I R_I AH_I L_E
@@ -33564,6 +33570,7 @@ nominee's nominee's N_B AA_I M_I AH_I N_I IY_I Z_E
 nominees nominees N_B AA_I M_I AH_I N_I IY_I Z_E
 nomura nomura N_B OW_I M_I UH_I R_I AH_E
 non non N_B AA_I N_E
+non-GMO non-GMO N_B AA_I N_E
 nona nona N_B AA_I N_I AH_E
 nonbelievers nonbelievers N_B AA_I N_I B_I AH_I L_I IY_I V_I ER_I Z_E
 nonchalant nonchalant N_B AA_I N_I SH_I AH_I L_I AA_I N_I T_E
@@ -37014,6 +37021,7 @@ plano plano P_B L_I EY_I N_I OW_E
 plans plans P_B L_I AE_I N_I Z_E
 plant plant P_B L_I AE_I N_I T_E
 plant's plant's P_B L_I AE_I N_I T_I S_E
+plant-based plant-based P_B L_I AE_I N_I T_I B_I EY_I S_I T_E
 plantation plantation P_B L_I AE_I N_I T_I EY_I SH_I AH_I N_E
 plantations plantations P_B L_I AE_I N_I T_I EY_I SH_I AH_I N_I Z_E
 planted planted P_B L_I AE_I N_I AH_I D_E
@@ -37826,6 +37834,7 @@ praying praying P_B R_I EY_I IH_I NG_E
 prays prays P_B R_I EY_I Z_E
 prc prc P_B IY_I AA_I R_I S_I IY_E
 pre pre P_B R_I IY_E
+pre-cooked pre-cooked P_B R_I IY_I K_I UH_I K_I T_E
 preach preach P_B R_I IY_I CH_E
 preached preached P_B R_I IY_I CH_I T_E
 preacher preacher P_B R_I IY_I CH_I ER_E
@@ -40008,6 +40017,7 @@ readjust readjust R_B IY_I AH_I JH_I AH_I S_I T_E
 readout readout R_B IY_I D_I AW_I T_E
 reads reads R_B IY_I D_I Z_E
 ready ready R_B EH_I D_I IY_E
+ready-to-eat ready-to-eat R_B EH_I D_I IY_I T_I UW_I IY_I T_E
 readying readying R_B EH_I D_I IY_I IH_I NG_E
 reaffirm reaffirm R_B IY_I AH_I F_I ER_I M_E
 reaffirmed reaffirmed R_B IY_I AH_I F_I ER_I M_I D_E
@@ -48244,6 +48254,7 @@ superficial superficial S_B UW_I P_I ER_I F_I IH_I SH_I AH_I L_E
 superficially superficially S_B UW_I P_I ER_I F_I IH_I SH_I AH_I L_I IY_E
 superficially superficially S_B UW_I P_I ER_I F_I IH_I SH_I AH_I L_I L_I IY_E
 superfluous superfluous S_B UW_I P_I ER_I F_I L_I W_I AH_I S_E
+superfoods superfoods S_B UW_I P_I ER_I F_I UW_I D_I Z_E
 superfund superfund S_B UW_I P_I ER_I F_I AH_I N_I D_E
 superhero superhero S_B UW_I P_I ER_I HH_I IY_I R_I OW_E
 superheroes superheroes S_B UW_I P_I ER_I HH_I IY_I R_I OW_I Z_E
