@@ -7,10 +7,10 @@ import time
 import pyaudio
 import torch
 import numpy as np
-
+from rnnoise_wrapper import RNNoise
 
 class SpeechAnalysisModule:
-    def __init__(self, asr_model_path = "vosk-model-small-en-us-0.15", vad_model_dir = "silero_models", keyword_file="list_of_words.txt"):
+    def __init__(self, asr_model_path = "vosk-model-small-en-us-0.15", vad_model_dir = "silero_models", keyword_file="list_of_words.txt", rnnoise_path="linux-rnnoise/rnnoise_mono.lv2/librnnoise_mono.so", noise_filter=False):
         # Path to the model (adjust according to where you extracted the model)
         
         self.vad_model, self.utils = torch.hub.load(repo_or_dir=vad_model_dir,
@@ -19,6 +19,10 @@ class SpeechAnalysisModule:
                               force_reload=True)
 
         self.p = pyaudio.PyAudio()
+        
+        self.noise_filter = noise_filter
+        if self.noise_filter:
+            self.denoiser = RNNoise(rnnoise_path)
         
         (self.get_speech_timestamps,
         self.save_audio,
@@ -87,6 +91,8 @@ class SpeechAnalysisModule:
                 if len(old_data) > 0:
                     audio_input = b''.join(old_data)
                     old_data = []
+                if self.noise_filter:
+                    audio_input = self.denoiser.filter(audio_input, sample_rate=16000)
                 if recognizer.AcceptWaveform(audio_input):
                     result = recognizer.Result()
                 
@@ -113,7 +119,8 @@ class SpeechAnalysisModule:
 
 if __name__ == "__main__":
 
-    sam = SpeechAnalysisModule()
+    # sam = SpeechAnalysisModule(rnnoise_path="macos-rnnoise/rnnoise_stereo.lv2/librnnoise_stereo.so",noise_filter=True)
+    sam = SpeechAnalysisModule(noise_filter=True)
     sam.listen()
 
     
