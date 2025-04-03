@@ -388,7 +388,10 @@ def decision_module_loop():
 ########################################
 if __name__ == "__main__":
     # Instantiate the speech module
-    sam = SpeechAnalysisModule(noise_filter=False)
+    sam = SpeechAnalysisModule(noise_filter=False,
+                               asr_model_path="SpeechAnalysisModule/vosk-model-small-en-us-0.15", 
+                               vad_model_dir="SpeechAnalysisModule/silero_models", 
+                               keyword_file="SpeechAnalysisModule/list_of_words.txt")
     # Monkey-patch its send_keyword method without changing the original file
     sam.send_keyword = patched_send_keyword.__get__(sam, SpeechAnalysisModule)
 

@@ -3,5 +3,6 @@ pyaudio
 torch
 silero-vad
 scipy
+onnxruntime
 
 git+https://github.com/Desklop/RNNoise_Wrapper
