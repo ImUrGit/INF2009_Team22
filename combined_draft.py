@@ -96,7 +96,7 @@ class SpeechAnalysisModule:
         old_data = []
         max_buffer = b'' # If person keeps talking, we limit it
         
-        self.check_against_list = self.keywords
+        self.check_against_list = self.keywords.copy()
         
         print("Checking against:", self.check_against_list)
         
@@ -121,18 +121,20 @@ class SpeechAnalysisModule:
                 data = stream.read(8000) 
                 audio_input = data
                 if len(old_data) > 0:
-                    audio_input = b''.join(old_data)
+                    # Join with frames that occurred before VAD
+                    audio_input = audio_input.join(old_data)
                     old_data = []
                 if self.noise_filter:
                     audio_input = self.denoiser.filter(audio_input, sample_rate=16000)
                 
                 # Trim the speech length of talkative people
                 if (len(max_buffer) > len(data) * 31.25 * 2):
-                    print("Trimming talkative people")
-                    max_buffer = max_buffer[:len(data) * 16]
-                    print(len(max_buffer), "@", len(data) * 31.25, "per second")
-                    audio_input = max_buffer
-                    recognizer = KaldiRecognizer(self.asr_model,16000) #lightweight intialization
+                    # print("Trimming talkative people")
+                    # max_buffer = max_buffer[:len(data) * 16]
+                    # print(len(max_buffer), "@", len(data) * 31.25, "per second")
+                    # audio_input = max_buffer
+                    # recognizer = KaldiRecognizer(self.asr_model,16000) #lightweight intialization
+                    max_buffer = b''
                     
                 # asr_start = time.time()
                 if recognizer.AcceptWaveform(audio_input):
@@ -143,10 +145,11 @@ class SpeechAnalysisModule:
                     print("complete:", json.loads(result)["text"])
                     is_listening = False
                     max_buffer = b''
-                    recognizer = KaldiRecognizer(self.asr_model,16000)
+                    # recognizer = KaldiRecognizer(self.asr_model,16000)
                     self.send_keyword(results_list)  
                     
-                    self.check_against_list = self.keywords
+                    self.check_against_list = self.keywords.copy()
+                    # print("Reset", self.check_against_list)
                     with data_condition:
                         data_condition.notify_all()
                 else:
