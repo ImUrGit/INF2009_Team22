@@ -13,4 +13,6 @@ Added a new folder called 'AdvertisementDecisionModule'
 <h3>The pickle files:</h3>
 
 - `model_pipeline.pkl` -> stores the pipeline, including preprocessing(scaling, one-hot encoding, TF-IDF transformation) and the classifier. Basically transforms the raw inputs into the proper format.
-- `label_encoder.pkl` -> maps the textual advertisement categories to numeric labels during training. When you make predictions, the model outputs numeric labels. You then use the label encoder to convert these numeric predictions back into their original category names. 
+- `label_encoder.pkl` -> maps the textual advertisement categories to numeric labels during training. When you make predictions, the model outputs numeric labels. You then use the label encoder to convert these numeric predictions back into their original category names.
+
+Webserver link: https://github.com/ivanpyw1999/edge_inf2009_22
